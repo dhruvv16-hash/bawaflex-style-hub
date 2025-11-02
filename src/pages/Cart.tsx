@@ -6,7 +6,15 @@ import { Link } from "react-router-dom";
 
 const Cart = () => {
   // Mock empty cart state
-  const cartItems: any[] = [];
+  interface CartItem {
+    id: number;
+    name: string;
+    image: string;
+    size: string;
+    price: string;
+    quantity: number;
+  }
+  const cartItems: CartItem[] = [];
 
   return (
     <div className="min-h-screen">

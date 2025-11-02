@@ -6,8 +6,17 @@ import { Minus, Plus, ShoppingBag } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
-// Mock product data
-const productData: Record<string, any> = {
+interface ProductData {
+  id: number;
+  name: string;
+  price: number;
+  description: string;
+  images: string[];
+  sizes: string[];
+  category: string;
+}
+
+const productData: Record<string, ProductData> = {
   "1": {
     id: 1,
     name: "Classic Black Hoodie",
