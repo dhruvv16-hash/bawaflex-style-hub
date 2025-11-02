@@ -64,32 +64,41 @@ const Shop = () => {
 
           {/* Products Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {products.map((product, index) => (
-              <div
-                key={product.id}
-                className="group cursor-pointer animate-fade-up"
-                style={{ animationDelay: `${index * 50}ms` }}
-              >
-                <div className="relative overflow-hidden bg-secondary aspect-square mb-4">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
+            {products.map((product, index) => {
+              const productLink = `/product/${product.id}`;
+              return (
+                <div
+                  key={product.id}
+                  className="group animate-fade-up"
+                  style={{ animationDelay: `${index * 50}ms` }}
+                >
+                  <a href={productLink} className="block">
+                    <div className="relative overflow-hidden bg-secondary aspect-square mb-4">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
+                    </div>
+                  </a>
+                  <div className="space-y-2">
+                    <p className="text-sm text-muted-foreground uppercase tracking-wider">
+                      {product.category}
+                    </p>
+                    <a href={productLink}>
+                      <h3 className="text-xl font-bold hover:text-accent transition-colors">
+                        {product.name}
+                      </h3>
+                    </a>
+                    <p className="text-lg font-semibold">{product.price}</p>
+                    <Button variant="default" size="sm" className="w-full mt-2">
+                      View Product
+                    </Button>
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <p className="text-sm text-muted-foreground uppercase tracking-wider">
-                    {product.category}
-                  </p>
-                  <h3 className="text-xl font-bold">{product.name}</h3>
-                  <p className="text-lg font-semibold">{product.price}</p>
-                  <Button variant="default" size="sm" className="w-full mt-2">
-                    Add to Cart
-                  </Button>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </main>
