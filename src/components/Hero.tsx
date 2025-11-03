@@ -1,50 +1,50 @@
 import { Link } from "react-router-dom";
-import { Button } from "./ui/button";
-import heroImage from "@/assets/hero-image.jpg";
 
 const Hero = () => {
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image with Parallax Effect */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: `url(${heroImage})`,
-          backgroundAttachment: "fixed",
-        }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70"></div>
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 text-center px-4 animate-fade-up">
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-6 tracking-tighter">
-          UNLEASH YOUR FLEX
-        </h1>
-        <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto font-medium">
-          Bold streetwear. Premium comfort. Unmatched style. Join the culture.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Link to="/shop">
-            <Button variant="hero" size="lg">
-              Shop Now
-            </Button>
-          </Link>
-          <Link to="/collections">
-            <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-black">
-              View Collections
-            </Button>
-          </Link>
+    <>
+      {/* Marquee Section */}
+      <div className="bg-secondary border-y border-border overflow-hidden py-3">
+        <div className="animate-marquee whitespace-nowrap flex">
+          {[...Array(10)].map((_, i) => (
+            <span key={i} className="text-foreground font-bold text-lg mx-8">
+              Welcome To The Ultimate FLEX !!
+            </span>
+          ))}
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center pt-2">
-          <div className="w-1 h-2 bg-white/50 rounded-full"></div>
+      <section className="relative min-h-[80vh] flex flex-col items-center justify-center overflow-hidden px-4 py-16 bg-background">
+        {/* Tagline */}
+        <div className="text-center mb-12 animate-fade-up">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 italic">
+            Bawa made it fresh, you made it Flex.
+          </h2>
         </div>
-      </div>
-    </section>
+
+        {/* Hero Card */}
+        <div className="relative w-full max-w-4xl aspect-[4/3] bg-secondary rounded-3xl overflow-hidden shadow-2xl animate-fade-up">
+          <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
+            <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-primary mb-8 tracking-tighter">
+              FLEXIFIED<br/>VOL. 1
+            </h1>
+            <div className="space-y-2 text-primary">
+              <p className="text-xl md:text-3xl font-bold uppercase tracking-wide">
+                FIRST EDITION OF PURE
+              </p>
+              <p className="text-xl md:text-3xl font-bold uppercase tracking-wide">
+                STREET HEAT.
+              </p>
+              <p className="text-xl md:text-3xl font-bold uppercase tracking-wide">
+                240 GSM OF CONFIDENCE.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <p className="text-foreground/70 mt-8 text-lg">Flexified Vol. 1</p>
+      </section>
+    </>
   );
 };
 
