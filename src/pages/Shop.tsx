@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 // Mock product data
 const products = [
@@ -8,42 +9,42 @@ const products = [
     id: 1,
     name: "404 FEELING",
     price: "Rs. 790.00",
-    image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=500&h=500&fit=crop",
+    image: "https://source.unsplash.com/random/500x500/?t-shirt",
     category: "T-Shirts",
   },
   {
     id: 2,
     name: "Flex Graphic Tee",
     price: "Rs. 690.00",
-    image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500&h=500&fit=crop",
+    image: "https://source.unsplash.com/random/500x500/?t-shirt,graphic",
     category: "T-Shirts",
   },
   {
     id: 3,
     name: "Street Joggers",
     price: "Rs. 1,290.00",
-    image: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=500&h=500&fit=crop",
+    image: "https://source.unsplash.com/random/500x500/?joggers",
     category: "Bottoms",
   },
   {
     id: 4,
     name: "Signature Cap",
     price: "Rs. 590.00",
-    image: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500&h=500&fit=crop",
+    image: "https://source.unsplash.com/random/500x500/?cap",
     category: "Accessories",
   },
   {
     id: 5,
     name: "Limited Edition Hoodie",
     price: "Rs. 1,690.00",
-    image: "https://images.unsplash.com/photo-1620799140188-3b2a7589af0b?w=500&h=500&fit=crop",
+    image: "https://source.unsplash.com/random/500x500/?hoodie",
     category: "Hoodies",
   },
   {
     id: 6,
     name: "Oversized Tee",
     price: "Rs. 790.00",
-    image: "https://images.unsplash.com/photo-1622445275576-721325763afe?w=500&h=500&fit=crop",
+    image: "https://source.unsplash.com/random/500x500/?t-shirt,oversized",
     category: "T-Shirts",
   },
 ];
@@ -72,7 +73,7 @@ const Shop = () => {
                   className="group animate-fade-up"
                   style={{ animationDelay: `${index * 50}ms` }}
                 >
-                  <a href={productLink} className="block">
+                  <Link to={productLink} className="block">
                     <div className="relative overflow-hidden bg-card aspect-square mb-4 border border-border">
                       <img
                         src={product.image}
@@ -80,20 +81,22 @@ const Shop = () => {
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
-                  </a>
+                  </Link>
                   <div className="space-y-2">
                     <p className="text-xs text-muted-foreground uppercase tracking-wider">
                       {product.category}
                     </p>
-                    <a href={productLink}>
+                    <Link to={productLink}>
                       <h3 className="text-xl font-bold hover:text-accent transition-colors">
                         {product.name}
                       </h3>
-                    </a>
+                    </Link>
                     <p className="text-lg font-semibold">{product.price}</p>
-                    <Button variant="default" size="sm" className="w-full mt-2">
-                      View Product
-                    </Button>
+                    <Link to={productLink}>
+                      <Button variant="default" size="sm" className="w-full mt-2">
+                        View Product
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               );

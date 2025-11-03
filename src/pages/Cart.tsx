@@ -4,17 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Trash2, Minus, Plus } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useCart } from "@/contexts/CartContext";
-import { useEffect } from "react";
 
 const Cart = () => {
   const { items, removeItem, updateQuantity, getTotal } = useCart();
-
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://checkout.razorpay.com/v1/checkout.js";
-    script.async = true;
-    document.body.appendChild(script);
-  }, []);
 
   return (
     <div className="min-h-screen">
@@ -98,41 +90,8 @@ const Cart = () => {
                       </div>
                     </div>
                   </div>
-                  <Button
-                    variant="hero"
-                    size="lg"
-                    className="w-full"
-                    onClick={() => {
-                      const options = {
-                        key: "YOUR_KEY_ID", // Enter the Key ID generated from the Dashboard
-                        amount: getTotal() * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-                        currency: "INR",
-                        name: "Acme Corp",
-                        description: "Test Transaction",
-                        image: "https://example.com/your_logo",
-                        order_id: "", //This is a sample Order ID. You will need to create an order on your server and pass the `id` here.
-                        handler: function (response) {
-                          alert(response.razorpay_payment_id);
-                          alert(response.razorpay_order_id);
-                          alert(response.razorpay_signature);
-                        },
-                        prefill: {
-                          name: "Gaurav Kumar",
-                          email: "gaurav.kumar@example.com",
-                          contact: "9191919191",
-                        },
-                        notes: {
-                          address: "Razorpay Corporate Office",
-                        },
-                        theme: {
-                          color: "#3399cc",
-                        },
-                      };
-                      const rzp1 = new (window as any).Razorpay(options);
-                      rzp1.open();
-                    }}
-                  >
-                    Pay with Razorpay
+                  <Button variant="hero" size="lg" className="w-full">
+                    Checkout
                   </Button>
                 </div>
               </div>
