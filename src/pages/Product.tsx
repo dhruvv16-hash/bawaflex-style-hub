@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Minus, Plus, ShoppingBag } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useCart } from "@/contexts/CartContext";
 
 interface ProductData {
   id: number;
@@ -37,6 +38,7 @@ const Product = () => {
   const [selectedSize, setSelectedSize] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [currentImage, setCurrentImage] = useState(0);
+  const { addItem } = useCart();
 
   if (!product) {
     return (
@@ -62,7 +64,14 @@ const Product = () => {
       toast.error("Please select a size");
       return;
     }
-    toast.success(`Added ${product.name} to cart!`);
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.images[0],
+      size: selectedSize,
+      quantity,
+    });
   };
 
   return (

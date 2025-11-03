@@ -1,20 +1,12 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Trash2 } from "lucide-react";
+import { Trash2, Minus, Plus } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useCart } from "@/contexts/CartContext";
 
 const Cart = () => {
-  // Mock empty cart state
-  interface CartItem {
-    id: number;
-    name: string;
-    image: string;
-    size: string;
-    price: string;
-    quantity: number;
-  }
-  const cartItems: CartItem[] = [];
+  const { items, removeItem, updateQuantity, getTotal } = useCart();
 
   return (
     <div className="min-h-screen">
@@ -23,7 +15,7 @@ const Cart = () => {
         <div className="container mx-auto px-4">
           <h1 className="text-4xl md:text-5xl font-black mb-8 animate-fade-up">YOUR CART</h1>
 
-          {cartItems.length === 0 ? (
+          {items.length === 0 ? (
             <div className="text-center py-16 animate-fade-up">
               <p className="text-xl text-muted-foreground mb-6">Your cart is empty</p>
               <Link to="/shop">
@@ -36,8 +28,8 @@ const Cart = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* Cart Items */}
               <div className="lg:col-span-2 space-y-4">
-                {cartItems.map((item) => (
-                  <div key={item.id} className="flex gap-4 bg-card p-4 border border-border">
+                {items.map((item) => (
+                  <div key={`${item.id}-${item.size}`} className="flex gap-4 bg-card p-4 border border-border animate-fade-up">
                     <img
                       src={item.image}
                       alt={item.name}
@@ -46,9 +38,32 @@ const Cart = () => {
                     <div className="flex-1">
                       <h3 className="font-bold text-lg">{item.name}</h3>
                       <p className="text-muted-foreground">Size: {item.size}</p>
-                      <p className="font-semibold mt-2">{item.price}</p>
+                      <p className="font-semibold mt-2">${item.price.toFixed(2)}</p>
+                      <div className="flex items-center gap-2 mt-2">
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="h-8 w-8"
+                          onClick={() => updateQuantity(item.id, item.size, item.quantity - 1)}
+                        >
+                          <Minus className="h-3 w-3" />
+                        </Button>
+                        <span className="font-semibold w-8 text-center">{item.quantity}</span>
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="h-8 w-8"
+                          onClick={() => updateQuantity(item.id, item.size, item.quantity + 1)}
+                        >
+                          <Plus className="h-3 w-3" />
+                        </Button>
+                      </div>
                     </div>
-                    <Button variant="ghost" size="icon">
+                    <Button 
+                      variant="ghost" 
+                      size="icon"
+                      onClick={() => removeItem(item.id, item.size)}
+                    >
                       <Trash2 className="h-5 w-5" />
                     </Button>
                   </div>
@@ -62,16 +77,16 @@ const Cart = () => {
                   <div className="space-y-2 mb-4">
                     <div className="flex justify-between">
                       <span>Subtotal</span>
-                      <span className="font-semibold">$0.00</span>
+                      <span className="font-semibold">${getTotal().toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Shipping</span>
-                      <span className="font-semibold">$0.00</span>
+                      <span className="font-semibold">Free</span>
                     </div>
                     <div className="border-t border-border pt-2 mt-2">
                       <div className="flex justify-between text-lg font-bold">
                         <span>Total</span>
-                        <span>$0.00</span>
+                        <span>${getTotal().toFixed(2)}</span>
                       </div>
                     </div>
                   </div>
