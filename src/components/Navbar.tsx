@@ -19,8 +19,11 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
-            <Link to="/" className="flex items-center">
+            <Link to="/" className="flex items-center gap-2">
               <img src={logo} alt="बावाflex" className="h-10 w-auto object-contain" />
+              <span className="text-xl font-black tracking-tighter text-foreground">
+                बावा<span className="text-accent">flex</span>
+              </span>
             </Link>
 
             {/* Desktop Navigation */}
