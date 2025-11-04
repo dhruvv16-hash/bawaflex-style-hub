@@ -130,8 +130,8 @@ export const products: Product[] = [
     description: "Exclusivity defined.",
     tagline: "Limited drop. Premium heavyweight hoodie with signature बावाflex branding.",
     images: [
-      "https://images.unsplash.com/photo-1620799140188-3b2a7589af0b?w=800&h=800&fit=crop",
       "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=800&h=800&fit=crop",
     ],
     sizes: ["S", "M", "L", "XL", "XXL"],
     category: "Hoodies",
