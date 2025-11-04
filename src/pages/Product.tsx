@@ -6,53 +6,11 @@ import { Minus, Plus, Heart, Mountain, Shirt } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useCart } from "@/contexts/CartContext";
-
-interface ProductData {
-  id: number;
-  name: string;
-  price: number;
-  description: string;
-  tagline: string;
-  images: string[];
-  sizes: string[];
-  category: string;
-  materials: string;
-  care: string[];
-  details: string[];
-}
-
-const productData: Record<string, ProductData> = {
-  "1": {
-    id: 1,
-    name: "404 FEELING",
-    price: 790.00,
-    description: "404 FEELING — emotion not found.",
-    tagline: "A glitch between love and regret. Burnt orange strokes on deep navy silence. Crafted under the #बावाflex state of mind.",
-    images: [
-      "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1620799140188-3b2a7589af0b?w=800&h=800&fit=crop",
-    ],
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    category: "T-Shirts",
-    materials: "240 GSM French Terry Cotton, 100% cotton",
-    care: [
-      "सदा करके धोना — print ka swag safe रहे।",
-      "Cold water में (30°C / 86°F max) – warna colors fade ho jayenge, और flex कम।",
-      "Mild detergent use करो – bleach और softener का bye-bye करो।",
-      "Air-dry या tumble dry low – ताकि tee का style hamesa street-ready रहे।"
-    ],
-    details: [
-      "Double-stitched sleeves & hem – क्योंकि stretching to bol do bye-bye!",
-      "Pre-shrunk fabric – shrinkage? बस वही है तक, काफी full flex guaranteed.",
-      "Layer it or rock it solo – street ka swag, जैसे चाहे वैसे पहनो।",
-      "Everyday ready – class ho ya street, यहाँ तक हमेशा आपके साथ flex करने के लिए तैयार!"
-    ]
-  },
-};
+import { getProductById } from "@/data/products";
 
 const Product = () => {
   const { id } = useParams();
-  const product = id ? productData[id] : null;
+  const product = id ? getProductById(parseInt(id)) : null;
   const [selectedSize, setSelectedSize] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [currentImage, setCurrentImage] = useState(0);

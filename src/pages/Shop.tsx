@@ -1,52 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-
-// Mock product data
-const products = [
-  {
-    id: 1,
-    name: "404 FEELING",
-    price: "Rs. 790.00",
-    image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=500&h=500&fit=crop",
-    category: "T-Shirts",
-  },
-  {
-    id: 2,
-    name: "Flex Graphic Tee",
-    price: "Rs. 690.00",
-    image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500&h=500&fit=crop",
-    category: "T-Shirts",
-  },
-  {
-    id: 3,
-    name: "Street Joggers",
-    price: "Rs. 1,290.00",
-    image: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=500&h=500&fit=crop",
-    category: "Bottoms",
-  },
-  {
-    id: 4,
-    name: "Signature Cap",
-    price: "Rs. 590.00",
-    image: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500&h=500&fit=crop",
-    category: "Accessories",
-  },
-  {
-    id: 5,
-    name: "Limited Edition Hoodie",
-    price: "Rs. 1,690.00",
-    image: "https://images.unsplash.com/photo-1620799140188-3b2a7589af0b?w=500&h=500&fit=crop",
-    category: "Hoodies",
-  },
-  {
-    id: 6,
-    name: "Oversized Tee",
-    price: "Rs. 790.00",
-    image: "https://images.unsplash.com/photo-1622445275576-721325763afe?w=500&h=500&fit=crop",
-    category: "T-Shirts",
-  },
-];
+import { products } from "@/data/products";
 
 const Shop = () => {
   return (
@@ -75,7 +30,7 @@ const Shop = () => {
                   <a href={productLink} className="block">
                     <div className="relative overflow-hidden bg-card aspect-square mb-4 border border-border">
                       <img
-                        src={product.image}
+                        src={product.images[0]}
                         alt={product.name}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
@@ -90,7 +45,7 @@ const Shop = () => {
                         {product.name}
                       </h3>
                     </a>
-                    <p className="text-lg font-semibold">{product.price}</p>
+                    <p className="text-lg font-semibold">{product.priceDisplay}</p>
                     <Button variant="default" size="sm" className="w-full mt-2">
                       View Product
                     </Button>
