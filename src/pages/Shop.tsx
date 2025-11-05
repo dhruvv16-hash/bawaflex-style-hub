@@ -1,59 +1,96 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { products } from "@/data/products";
+import { ProductCard } from "@/components/ProductCard";
+import { useState, useMemo } from "react";
+import { Search } from "lucide-react";
 
 const Shop = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  const categories = ["All", ...Array.from(new Set(products.map(p => p.category)))];
+
+  const filteredProducts = useMemo(() => {
+    return products.filter((product) => {
+      const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                           product.description.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesCategory = selectedCategory === "All" || product.category === selectedCategory;
+      return matchesSearch && matchesCategory;
+    });
+  }, [searchQuery, selectedCategory]);
+
   return (
     <div className="min-h-screen">
       <Navbar />
       <main className="pt-20 pb-20">
         <div className="container mx-auto px-4">
           {/* Header */}
-          <div className="text-center mb-12 py-8 animate-fade-up">
+          <div className="text-center mb-8 py-8 animate-fade-up">
             <h1 className="text-5xl md:text-7xl font-black mb-4 tracking-tight">SHOP ALL</h1>
             <p className="text-lg text-muted-foreground">
               Discover our full collection of premium streetwear
             </p>
           </div>
 
-          {/* Products Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {products.map((product, index) => {
-              const productLink = `/product/${product.id}`;
-              return (
-                <div
-                  key={product.id}
-                  className="group animate-fade-up"
-                  style={{ animationDelay: `${index * 50}ms` }}
+          {/* Filters */}
+          <div className="mb-8 space-y-4">
+            {/* Search */}
+            <div className="relative max-w-md mx-auto">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
+              <Input
+                type="text"
+                placeholder="Search products..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+
+            {/* Category Filter */}
+            <div className="flex flex-wrap justify-center gap-2">
+              {categories.map((category) => (
+                <Button
+                  key={category}
+                  variant={selectedCategory === category ? "default" : "outline"}
+                  onClick={() => setSelectedCategory(category)}
+                  size="sm"
                 >
-                  <a href={productLink} className="block">
-                    <div className="relative overflow-hidden bg-card aspect-square mb-4 border border-border">
-                      <img
-                        src={product.images[0]}
-                        alt={product.name}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </div>
-                  </a>
-                  <div className="space-y-2">
-                    <p className="text-xs text-muted-foreground uppercase tracking-wider">
-                      {product.category}
-                    </p>
-                    <a href={productLink}>
-                      <h3 className="text-xl font-bold hover:text-accent transition-colors">
-                        {product.name}
-                      </h3>
-                    </a>
-                    <p className="text-lg font-semibold">{product.priceDisplay}</p>
-                    <Button variant="default" size="sm" className="w-full mt-2">
-                      View Product
-                    </Button>
-                  </div>
-                </div>
-              );
-            })}
+                  {category}
+                </Button>
+              ))}
+            </div>
           </div>
+
+          {/* Results Count */}
+          <p className="text-center text-muted-foreground mb-6">
+            Showing {filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'}
+          </p>
+
+          {/* Products Grid */}
+          {filteredProducts.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredProducts.map((product, index) => (
+                <ProductCard key={product.id} product={product} index={index} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-lg text-muted-foreground">No products found matching your criteria.</p>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setSearchQuery("");
+                  setSelectedCategory("All");
+                }}
+                className="mt-4"
+              >
+                Clear Filters
+              </Button>
+            </div>
+          )}
         </div>
       </main>
       <Footer />
